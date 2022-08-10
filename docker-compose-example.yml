@@ -43,11 +43,19 @@ services:
     links:
       - mysql
       - redis
+      - soketi
     environment:
       - DB_PORT=3306
       - DB_HOST=mysql
       - REDIS_PORT=6379
       - REDIS_HOST=redis
+  soketi:
+    build:
+      context: ./
+      dockerfile: dockerfiles/soketi.docker
+    restart: always
+    ports:
+      - '6001:6001'
   mysql:
     build:
       context: ./
