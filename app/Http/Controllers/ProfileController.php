@@ -1,10 +1,14 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Events\PresenceEvent;
+use App\Events\PrivateEvent;
+use App\Events\TestEvent;
 use Auth;
 use Hash;
 use App\Models\Auth\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
@@ -12,6 +16,12 @@ class ProfileController extends Controller
 
     public function index(Request $request)
     {
+        Log::info("Index del perfil");
+        TestEvent::dispatch("Hola Este es un evento publico");
+        sleep(3);
+        PrivateEvent::dispatch("Hola este es un evento privado");
+        sleep(3);
+        PresenceEvent::dispatch();
         return view('component')
             ->withTitle('Perfil')
             ->with('component', 'profile');
@@ -56,3 +66,4 @@ class ProfileController extends Controller
         return response()->json('ok');
     }
 }
+

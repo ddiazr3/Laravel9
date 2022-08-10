@@ -27,11 +27,14 @@ services:
     links:
       - mysql
       - redis
+      - soketi
     environment:
       - DB_PORT=3306
       - DB_HOST=mysql
       - REDIS_PORT=6379
       - REDIS_HOST=redis
+      - PUSHER_HOST=soketi
+      - PUSHER_PORT=6001
   scheduler:
     build:
       context: ./
@@ -49,6 +52,8 @@ services:
       - DB_HOST=mysql
       - REDIS_PORT=6379
       - REDIS_HOST=redis
+      - PUSHER_HOST=soketi
+      - PUSHER_PORT=6001
   soketi:
     build:
       context: ./

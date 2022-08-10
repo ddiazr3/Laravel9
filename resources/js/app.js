@@ -24,11 +24,30 @@ files
         Vue.component(key.split("/").pop().split(".")[0], files(key).default)
     );
 
-Vue.component("catalogs-roles-edit", require("./views/catalogs/RolesEdit").default);
-Vue.component("catalogs-rolemodule",require("./views/catalogs/RoleModule").default);
-Vue.component("catalogs-users-edit",require("./views/catalogs/UsersEdit").default);
-Vue.component("profile",require("./views/Profile").default);
-Vue.component("InputField",require("./components/InputField").default);
+Vue.component(
+    "catalogs-roles-edit",
+    require("../../vendor/csgt/utils/src/resources/views/catalogs/RolesEdit.vue")
+        .default
+);
+Vue.component(
+    "catalogs-rolemodule",
+    require("../../vendor/csgt/utils/src/resources/views/catalogs/RoleModule.vue")
+        .default
+);
+Vue.component(
+    "catalogs-users-edit",
+    require("../../vendor/csgt/utils/src/resources/views/catalogs/UsersEdit.vue")
+        .default
+);
+Vue.component(
+    "profile",
+    require("../../vendor/csgt/utils/src/resources/views/Profile.vue").default
+);
+Vue.component(
+    "InputField",
+    require("../../vendor/csgt/utils/src/resources/components/InputField.vue")
+        .default
+);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

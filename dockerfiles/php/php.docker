@@ -10,7 +10,7 @@ RUN echo 'alias cda="composer dump-autoload"' >> ~/.bashrc
 
 ENV TZ="/usr/share/zoneinfo/America/Guatemala"
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get install -y \
 libfreetype6-dev \
 libjpeg62-turbo-dev \
 libpng-dev \
@@ -21,7 +21,8 @@ zlib1g-dev  \
 libpng-dev \
 libjpeg-dev \
 libmcrypt-dev \
-libfreetype6-dev zip
+libfreetype6-dev \
+zip
 
 
 RUN docker-php-ext-install pdo_mysql
