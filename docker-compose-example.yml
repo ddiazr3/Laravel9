@@ -5,6 +5,8 @@ services:
       context: ./
       dockerfile: dockerfiles/redis/redis.docker
     restart: always
+    networks:
+      - app-network
   nginx:
     build:
       context: ./
@@ -16,6 +18,8 @@ services:
       - '8081:80'
     links:
       - php
+    networks:
+      - app-network
   php:
     build:
       context: ./
@@ -33,8 +37,14 @@ services:
       - DB_HOST=mysql
       - REDIS_PORT=6379
       - REDIS_HOST=redis
-      - PUSHER_HOST=soketi
       - PUSHER_PORT=6001
+      - PUSHER_HOST=soketi
+      - PUSHER_APP_ID=app-id
+      - PUSHER_APP_KEY=app-key
+      - PUSHER_APP_SECRET=app-secret
+      - PUSHER_SCHEME=http
+    networks:
+      - app-network
   scheduler:
     build:
       context: ./
@@ -52,15 +62,50 @@ services:
       - DB_HOST=mysql
       - REDIS_PORT=6379
       - REDIS_HOST=redis
-      - PUSHER_HOST=soketi
       - PUSHER_PORT=6001
-  soketi:
+      - PUSHER_HOST=soketi
+      - PUSHER_APP_ID=app-id
+      - PUSHER_APP_KEY=app-key
+      - PUSHER_APP_SECRET=app-secret
+      - PUSHER_SCHEME=http
+    networks:
+      - app-network
+  vue-app:
     build:
-      context: ./
-      dockerfile: dockerfiles/soketi.docker
+      context: ../Vue-Ecom
+      dockerfile: dockerfiles/vue.docker
+    volumes:
+      - '../Vue-Ecom/:/app'
+      - '/app/node_modules'
+    restart: always
+    environment:
+      - VUE_APP_PUSHER_PORT=6001
+      - VUE_APP_PUSHER_HOST=soketi
+      - VUE_APP_PUSHER_APP_ID=app-id
+      - VUE_APP_PUSHER_APP_KEY=app-key
+      - VUE_APP_PUSHER_APP_SECRET=app-secret
+      - VUE_APP_PUSHER_SCHEME=http
+    links:
+      - soketi
+    ports:
+      - "8079:8080"
+    networks:
+      - app-network
+  soketi:
+    image: 'quay.io/soketi/soketi:0.17-16-alpine'
     restart: always
     ports:
       - '6001:6001'
+      - '9601:9601'
+    environment:
+      - DEBUG=1
+      - DEFAULT_APP_ID=app-id
+      - DEFAULT_APP_KEY=app-key
+      - DEFAULT_APP_SECRET=app-secret
+      - METRICS_SERVER_PORT=9601
+      - DEFAULT_APP_ENABLE_CLIENT_MESSAGES=true
+    networks:
+      - app-network
   mysql:
     build:
       context: ./
@@ -73,5 +118,10 @@ services:
       - MYSQL_DATABASE=ecommerce
     ports:
       - '33069:3306'
+    networks:
+      - app-network
 volumes:
   mysql-data: null
+networks:
+  app-network:
+    driver: bridge

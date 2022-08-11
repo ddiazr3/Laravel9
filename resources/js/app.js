@@ -24,28 +24,55 @@ files
         Vue.component(key.split("/").pop().split(".")[0], files(key).default)
     );
 
+
+// Vue.component(
+//     "catalogs-roles-edit",
+//     require("./views/catalogs/RolesEdit.vue")
+//         .default
+// );
+// Vue.component(
+//     "catalogs-rolemodule",
+//     require("./views/catalogs/RoleModule.vue")
+//         .default
+// );
+// Vue.component(
+//     "catalogs-users-edit",
+//     require("./views/catalogs/UsersEdit.vue")
+//         .default
+// );
+// Vue.component(
+//     "profile",
+//     require("./views/Profile.vue").default
+// );
+// Vue.component(
+//     "InputField",
+//     require("./components/InputField.vue")
+//         .default
+// );
+
+
 Vue.component(
     "catalogs-roles-edit",
-    require("../../vendor/csgt/utils/src/resources/views/catalogs/RolesEdit.vue")
+    require("./views/catalogs/RolesEdit.vue")
         .default
 );
 Vue.component(
     "catalogs-rolemodule",
-    require("../../vendor/csgt/utils/src/resources/views/catalogs/RoleModule.vue")
+    require("./views/catalogs/RoleModule.vue")
         .default
 );
 Vue.component(
     "catalogs-users-edit",
-    require("../../vendor/csgt/utils/src/resources/views/catalogs/UsersEdit.vue")
+    require("./views/catalogs/UsersEdit.vue")
         .default
 );
 Vue.component(
     "profile",
-    require("../../vendor/csgt/utils/src/resources/views/Profile.vue").default
+    require("./views/Profile.vue").default
 );
 Vue.component(
     "InputField",
-    require("../../vendor/csgt/utils/src/resources/components/InputField.vue")
+    require("./components/InputField.vue")
         .default
 );
 

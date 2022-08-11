@@ -16,12 +16,7 @@ class ProfileController extends Controller
 
     public function index(Request $request)
     {
-        Log::info("Index del perfil");
-        TestEvent::dispatch("Hola Este es un evento publico");
-        sleep(3);
-        PrivateEvent::dispatch("Hola este es un evento privado");
-        sleep(3);
-        PresenceEvent::dispatch();
+       Log::info("Index del perfil ".auth()->user()->id);
         return view('component')
             ->withTitle('Perfil')
             ->with('component', 'profile');
@@ -53,6 +48,9 @@ class ProfileController extends Controller
             $messages['user.password.required']  = 'La password es requerida';
             $messages['user.password.confirmed'] = 'Las passwords no concuerdan';
         }
+          #Test de envio de eventos para cosas en tiempo real
+//        event(new TestEvent("Hola Este es un evento publico"));
+//        event(new PrivateEvent("******* Provado ************ "));
 
         $request->validate($rules, $messages);
 

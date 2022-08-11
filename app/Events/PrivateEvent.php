@@ -15,24 +15,15 @@ class PrivateEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public string $message;
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
+
     public function __construct(string $message)
     {
         $this->message = $message;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
     public function broadcastOn() : Channel
     {
-        return new PrivateChannel('private.' . auth()->user()->id);
+        return new PrivateChannel('privado.' . auth()->user()->id);
     }
 
 }

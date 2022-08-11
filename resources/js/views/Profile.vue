@@ -84,15 +84,18 @@ export default {
     },
     mounted() {
 
-        Echo.channel('public')
-            .listen('TestEvent', (e) => {
-                console.log("Recibiendo el canal publico " + e)
-            });
-        Echo.private('private.')
-            .listen('PrivateEvent', (e) => {
-                console.log("Recibiendo el canal privado ")
-                console.log(e)
-            });
+        //Como recibir del canal
+        // Echo.channel('public')
+        //     .listen('TestEvent', (e) => {
+        //        alert(e.message)
+        //         console.log(e.message)
+        //     });
+        //
+        // Echo.private('privado.1')
+        //     .listen('PrivateEvent', (e) => {
+        //         console.log("privado")
+        //         console.log(e)
+        //     });
         axios
             .get("/profile/0/detail")
             .then((response) => {

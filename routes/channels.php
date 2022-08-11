@@ -21,10 +21,12 @@ Broadcast::channel('public', function () {
     return true;
 });
 
-Broadcast::channel('private.{id}', function ($user, $id) {
-    return true;
+Broadcast::channel('privado.{id}', function ($user, $id) {
+    \Illuminate\Support\Facades\Log::info("id +log ".$user->id);
+    \Illuminate\Support\Facades\Log::info("id recibido ".$id);
+    return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('presence.{id}', function ($user,int $id) {
+Broadcast::channel('presence.{id}', function () {
     return true;
 });
